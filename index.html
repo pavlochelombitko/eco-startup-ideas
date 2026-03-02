@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoLaunch — Startup Ideas for SFF START</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a2e1a;
+    --moss: #3d5a3d;
+    --sage: #7a9e7a;
+    --leaf: #4ecb71;
+    --lime: #b8f06a;
+    --cream: #f4f1e8;
+    --sand: #e8e2d4;
+    --bark: #2c1e0f;
+    --water: #3ba4c9;
+    --earth: #c4854c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--bark);
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(175deg, var(--forest) 0%, #1f3a1f 40%, var(--moss) 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(78, 203, 113, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(184, 240, 106, 0.08) 0%, transparent 40%);
+    animation: drift 20s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(2%, -1%) rotate(1deg); }
+    66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    color: var(--sage);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--leaf);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    color: var(--cream);
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero h1 em {
+    color: var(--leaf);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--sage);
+    max-width: 560px;
+    margin-top: 1.5rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--leaf);
+    color: var(--forest);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .hero-cta:hover {
+    background: var(--lime);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(78, 203, 113, 0.3);
+  }
+
+  .hero-cta svg { transition: transform 0.3s ease; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--sage);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    animation: bob 2s ease infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--leaf);
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--forest);
+    line-height: 1.15;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  /* IDEA CARDS */
+  .ideas-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .idea-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .idea-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--leaf);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .idea-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(26, 46, 26, 0.08);
+  }
+
+  .idea-card:hover::after { opacity: 1; }
+
+  .idea-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 3rem;
+    color: var(--sand);
+    line-height: 1;
+    min-width: 60px;
+    transition: color 0.3s ease;
+  }
+
+  .idea-card:hover .idea-number { color: var(--leaf); }
+
+  .idea-content h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    color: var(--forest);
+    margin-bottom: 0.6rem;
+  }
+
+  .idea-content p {
+    color: var(--moss);
+    line-height: 1.75;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .idea-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .tag--green { background: #e8f5e9; color: #2e7d32; }
+  .tag--blue { background: #e3f2fd; color: #1565c0; }
+  .tag--orange { background: #fff3e0; color: #e65100; }
+  .tag--purple { background: #f3e5f5; color: #7b1fa2; }
+  .tag--teal { background: #e0f2f1; color: #00695c; }
+
+  /* HIGHLIGHT CARD */
+  .highlight-card {
+    background: linear-gradient(135deg, var(--forest) 0%, var(--moss) 100%);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(184, 240, 106, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .highlight-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .highlight-card p {
+    color: var(--sage);
+    line-height: 1.8;
+    max-width: 700px;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--forest);
+    color: var(--sage);
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  footer a {
+    color: var(--leaf);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(78, 203, 113, 0.3);
+    transition: border-color 0.3s;
+  }
+
+  footer a:hover { border-color: var(--leaf); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .idea-card {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding: 1.5rem;
+    }
+    .idea-number { font-size: 2rem; }
+    .section { padding: 3rem 1.2rem; }
+  }
+
+  /* Stagger animation */
+  .idea-card {
+    opacity: 0;
+    animation: fadeUp 0.6s ease both;
+  }
+  .idea-card:nth-child(1) { animation-delay: 0.1s; }
+  .idea-card:nth-child(2) { animation-delay: 0.18s; }
+  .idea-card:nth-child(3) { animation-delay: 0.26s; }
+  .idea-card:nth-child(4) { animation-delay: 0.34s; }
+  .idea-card:nth-child(5) { animation-delay: 0.42s; }
+  .idea-card:nth-child(6) { animation-delay: 0.5s; }
+  .idea-card:nth-child(7) { animation-delay: 0.58s; }
+  .idea-card:nth-child(8) { animation-delay: 0.66s; }
+  .idea-card:nth-child(9) { animation-delay: 0.74s; }
+  .idea-card:nth-child(10) { animation-delay: 0.82s; }
+  .idea-card:nth-child(11) { animation-delay: 0.9s; }
+  .idea-card:nth-child(12) { animation-delay: 0.98s; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-badge">SFF START Program 2025</span>
+  <h1>Build the <em>Future</em>,<br>Save the Planet</h1>
+  <p class="hero-sub">12 ecology-driven startup ideas designed for the SFF START international entrepreneurship program. Find your mission.</p>
+  <a href="https://scefreiraum.typeform.com/to/gQzYjo7w" target="_blank" class="hero-cta">
+    Apply Now
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+  </a>
+  <span class="scroll-hint">↓ scroll to explore</span>
+</section>
+
+<!-- IDEAS -->
+<section class="section">
+  <span class="section-label">Startup Ideas</span>
+  <h2 class="section-title">Ecology-focused ventures with real impact potential</h2>
+
+  <div class="ideas-grid">
+
+    <!-- 1 -->
+    <article class="idea-card">
+      <span class="idea-number">01</span>
+      <div class="idea-content">
+        <h3>GreenBite — AI-Powered Food Waste Reducer</h3>
+        <p>A mobile app that connects restaurants, supermarkets, and bakeries with consumers to sell surplus food at a discount before it goes to waste. Uses AI to predict daily surplus and optimize pricing dynamically. Think "Too Good To Go" but smarter — with meal-planning suggestions and carbon footprint tracking per purchase.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Food Waste</span>
+          <span class="tag tag--blue">AI / ML</span>
+          <span class="tag tag--orange">Marketplace</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="idea-card">
+      <span class="idea-number">02</span>
+      <div class="idea-content">
+        <h3>EcoTrace — Personal Carbon Footprint Dashboard</h3>
+        <p>A web platform that connects to your bank account (via open banking APIs) and automatically categorizes your spending into carbon impact categories — transport, food, fashion, energy. Provides weekly "eco scores," personalized reduction challenges, and community leaderboards to gamify sustainable living.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Carbon Tracking</span>
+          <span class="tag tag--blue">FinTech</span>
+          <span class="tag tag--purple">Gamification</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="idea-card">
+      <span class="idea-number">03</span>
+      <div class="idea-content">
+        <h3>UrbanRoots — Micro-Farm Management SaaS</h3>
+        <p>A platform for urban dwellers who want to grow food on rooftops, balconies, and community gardens. Offers IoT sensor integration (soil moisture, light, temperature), AI-driven planting calendars, and a marketplace to sell or share surplus harvest locally. Perfect for growing the urban agriculture movement in Central Europe.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Urban Agriculture</span>
+          <span class="tag tag--teal">IoT</span>
+          <span class="tag tag--orange">SaaS</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="idea-card">
+      <span class="idea-number">04</span>
+      <div class="idea-content">
+        <h3>CircleWear — Fashion Circular Economy Platform</h3>
+        <p>A peer-to-peer platform specifically for renting, swapping, and reselling clothing within university communities. Each item has a "lifecycle score" showing how many times it's been reused, CO₂ saved, and water preserved. Partnerships with local designers turn irreparable clothes into upcycled limited collections.</p>
+        <div class="idea-tags">
+          <span class="tag tag--purple">Circular Economy</span>
+          <span class="tag tag--green">Sustainable Fashion</span>
+          <span class="tag tag--orange">P2P</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="idea-card">
+      <span class="idea-number">05</span>
+      <div class="idea-content">
+        <h3>WattShare — Community Energy Trading</h3>
+        <p>A blockchain-based platform that allows neighbors with solar panels, small wind turbines, or battery storage to sell excess energy directly to others in their community. Smart contracts automate fair pricing based on real-time grid demand. Targets Central European housing cooperatives and small municipalities.</p>
+        <div class="idea-tags">
+          <span class="tag tag--blue">Blockchain</span>
+          <span class="tag tag--green">Renewable Energy</span>
+          <span class="tag tag--teal">Community</span>
+        </div>
+      </div>
+    </article>
+
+    <div class="highlight-card">
+      <h3>💡 Why ecology + entrepreneurship?</h3>
+      <p>The EU Green Deal aims to make Europe climate-neutral by 2050, unlocking €1 trillion in sustainable investments. Ecology-focused startups are not just good for the planet — they're positioned at the centre of the biggest economic transformation of our generation. The SFF START Program is your launchpad.</p>
+    </div>
+
+    <!-- 6 -->
+    <article class="idea-card">
+      <span class="idea-number">06</span>
+      <div class="idea-content">
+        <h3>BioPackHub — Compostable Packaging Marketplace</h3>
+        <p>A B2B marketplace connecting small and medium businesses with verified compostable and biodegradable packaging suppliers across Europe. Includes a comparison tool for cost, decomposition time, certification status, and carbon impact. Helps SMEs transition away from single-use plastic without the research overhead.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Zero Waste</span>
+          <span class="tag tag--orange">B2B Marketplace</span>
+          <span class="tag tag--blue">Supply Chain</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7 -->
+    <article class="idea-card">
+      <span class="idea-number">07</span>
+      <div class="idea-content">
+        <h3>RiverWatch — Citizen Science Water Quality Monitor</h3>
+        <p>An affordable, open-source water quality sensor kit paired with a crowdsourced data platform. Citizens place sensors in local rivers and streams; the platform aggregates data into real-time pollution maps. Targets environmental NGOs, municipalities, and schools. Revenue from premium analytics dashboards and B2G data licensing.</p>
+        <div class="idea-tags">
+          <span class="tag tag--blue">Hardware + SaaS</span>
+          <span class="tag tag--teal">Citizen Science</span>
+          <span class="tag tag--green">Water Quality</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="idea-card">
+      <span class="idea-number">08</span>
+      <div class="idea-content">
+        <h3>GreenCommute — Corporate Mobility Credits</h3>
+        <p>A platform for companies to incentivize green commuting. Employees log eco-friendly trips (cycling, public transit, carpooling) and earn credits redeemable for perks, days off, or donations to environmental causes. Companies get ESG reporting dashboards. Targets EU firms facing mandatory sustainability reporting under CSRD.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Green Transport</span>
+          <span class="tag tag--purple">ESG / CSRD</span>
+          <span class="tag tag--orange">HR Tech</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 9 -->
+    <article class="idea-card">
+      <span class="idea-number">09</span>
+      <div class="idea-content">
+        <h3>SoilBank — Regenerative Agriculture Carbon Credits</h3>
+        <p>A fintech platform that helps small farmers in Central & Eastern Europe earn income by adopting regenerative practices (cover cropping, reduced tillage, composting). SoilBank verifies soil carbon sequestration via satellite imagery and soil sampling, then sells verified credits to corporations. Farmers get paid, companies offset — everyone wins.</p>
+        <div class="idea-tags">
+          <span class="tag tag--green">Carbon Credits</span>
+          <span class="tag tag--blue">AgriTech</span>
+          <span class="tag tag--orange">FinTech</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10 -->
+    <article class="idea-card">
+      <span class="idea-number">10</span>
+      <div class="idea-content">
+        <h3>EduWild — Gamified Biodiversity Education</h3>
+        <p>A mobile app that turns nature walks into interactive learning adventures. Users scan plants and animals with their camera (AI-powered species recognition), collect "discovery cards," complete regional biodiversity quests, and contribute to open-source species databases. Monetized through school licenses, eco-tourism partnerships, and premium content packs.</p>
+        <div class="idea-tags">
+          <span class="tag tag--purple">EdTech</span>
+          <span class="tag tag--green">Biodiversity</span>
+          <span class="tag tag--blue">Computer Vision</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 11 -->
+    <article class="idea-card">
+      <span class="idea-number">11</span>
+      <div class="idea-content">
+        <h3>RepairMap — Right-to-Repair Local Network</h3>
+        <p>A hyperlocal platform connecting consumers with independent repair shops, community fix-it events, and spare parts suppliers. Includes repair guides, difficulty ratings, and cost estimates for electronics, appliances, furniture, and clothing. Aligns with the EU's Right to Repair Directive and reduces e-waste at scale.</p>
+        <div class="idea-tags">
+          <span class="tag tag--teal">Circular Economy</span>
+          <span class="tag tag--green">E-Waste Reduction</span>
+          <span class="tag tag--orange">Local Marketplace</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 12 -->
+    <article class="idea-card">
+      <span class="idea-number">12</span>
+      <div class="idea-content">
+        <h3>CleanAir Collective — Indoor Air Quality as a Service</h3>
+        <p>A subscription service providing smart air quality monitors and AI-driven ventilation recommendations for offices, schools, and co-working spaces. Dashboard shows real-time PM2.5, CO₂, VOC levels alongside health impact scores and energy-efficient improvement suggestions. Revenue from hardware rental + monthly SaaS subscriptions.</p>
+        <div class="idea-tags">
+          <span class="tag tag--blue">IoT / SaaS</span>
+          <span class="tag tag--green">Air Quality</span>
+          <span class="tag tag--purple">Health Tech</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built for the <strong>SFF START Program</strong> Open Call — Deadline: 25 March 2025</p>
+  <p style="margin-top: 0.5rem;">
+    <a href="https://scefreiraum.typeform.com/to/gQzYjo7w" target="_blank">Apply here →</a>
+  </p>
+  <p style="margin-top: 1rem; opacity: 0.5;">Ideas curated for ecology-focused innovation in Central Europe</p>
+</footer>
+
+</body>
+</html>
